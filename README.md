@@ -1,0 +1,1 @@
+# Sistem-Pakar-Metode-Certainty-Factor-untuk-Keputusan-Pengambilan-Sampah
