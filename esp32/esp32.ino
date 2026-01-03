@@ -16,20 +16,20 @@
 #include "addons/TokenHelper.h"
 #include "addons/RTDBHelper.h"
 
-// --- 1. KONFIGURASI WIFI (WAJIB DIISI) ---
-const char* ssid = "AAA";          // Ganti dengan nama WiFi
-const char* password = "12345678";   // Ganti dengan password WiFi
+// 1. KONFIGURASI WIFI (WAJIB DIISI)
+const char* ssid = "AAA";          // nama WiFi
+const char* password = "12345678";   // password WiFi
 
-// --- 2. KONFIGURASI FIREBASE (WAJIB DIISI) ---
+// 2. KONFIGURASI FIREBASE
 #define DATABASE_URL "https://pemilah-sampah-cb971-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define API_KEY "AIzaSyB-ruimuEUesMO6fnJFRbiRJhAH_g6vF08"
 
-// --- 3. KONFIGURASI PIN ---
+// 3. KONFIGURASI PIN
 #define DHTPIN 4        
 #define DHTTYPE DHT22   
 #define PIN_MQ 34       
 
-// --- KONFIGURASI ALARM BUZZER (SUHU) ---
+// KONFIGURASI ALARM BUZZER (SUHU)
 #define PIN_BUZZER 13   // Wiring: Positif Buzzer ke D13, Negatif ke GND
 #define BATAS_SUHU 45.0 // Buzzer nyala jika suhu di atas 45 derajat Celcius
 
@@ -40,7 +40,7 @@ const int echoAnorg = 21;
 
 const int TINGGI_TONG_CM = 30; // Tinggi maksimal tempat sampah (cm)
 
-// --- OBJEK ---
+// OBJEK
 DHT dht(DHTPIN, DHTTYPE);
 FirebaseData fbdo;
 FirebaseAuth auth;
@@ -77,7 +77,7 @@ void setup() {
   }
   Serial.println("\nTerhubung ke WiFi!");
 
-  // --- SETUP FIREBASE ---
+  // SETUP FIREBASE
   config.api_key = API_KEY;
   config.database_url = DATABASE_URL;
   
@@ -101,7 +101,7 @@ void loop() {
      return;
   }
 
-  // --- 1. BACA SENSOR ---
+  // 1. BACA SENSOR
   float h = dht.readHumidity();
   float t = dht.readTemperature();
   
@@ -111,7 +111,7 @@ void loop() {
     Serial.println("Gagal baca DHT!"); 
   }
 
-  // --- [BARU] LOGIKA ALARM SUHU (BUZZER) ---
+  // LOGIKA ALARM SUHU (BUZZER)
   // Jika suhu lebih dari 45 derajat, nyalakan buzzer
   if (t > BATAS_SUHU) {
     digitalWrite(PIN_BUZZER, HIGH);
@@ -122,7 +122,7 @@ void loop() {
 
   // Baca Sensor Gas (Tetap dibaca untuk dikirim ke Firebase)
   int mqRaw = analogRead(PIN_MQ); 
-  // Kita kirim nilai raw saja agar lebih akurat di data
+  // Kirim Nilai sensor gas
   int gasPercent = map(mqRaw, 0, 4095, 0, 100); 
 
   // Hitung Organik
@@ -140,7 +140,7 @@ void loop() {
   // Tampilkan di Serial Monitor
   Serial.printf("\nSuhu: %.1f C | Gas Raw: %d | Org: %d %% | Anorg: %d %%\n", t, mqRaw, persenOrg, persenAnorg);
 
-  // --- 2. KIRIM KE FIREBASE ---
+  // 2. KIRIM KE FIREBASE
   if (Firebase.ready() && signupOK) {
 
     // A. UPDATE STATUS REALTIME (Dashboard)
