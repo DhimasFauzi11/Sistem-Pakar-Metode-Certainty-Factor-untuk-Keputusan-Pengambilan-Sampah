@@ -44,7 +44,7 @@ graph TD
     
     %% Jalur 2: Future Prediction
     B -->|Data Historis| E(Machine Learning Model)
-    E -->|Output 2| F[Forecasting: Penuh dalam X Jam]
+    E -->|Output 2| F[Forecasting: Penuh dalam X Hari]
     
     %% Muara
     D --> G[DASHBOARD MONITORING]
