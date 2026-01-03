@@ -12,12 +12,6 @@
 ## 📋 Daftar Isi
 - [Latar Belakang](#-latar-belakang)
 - [Arsitektur Dual-Output](#-arsitektur-dual-output)
-- [Fitur Utama](#-fitur-utama)
-- [1. Sistem Pakar (Decision Maker)](#1-sistem-pakar-decision-maker)
-- [2. Machine Learning (Forecaster)](#2-machine-learning-forecaster)
-- [Dashboard Monitoring](#-dashboard-monitoring)
-- [Instalasi](#-instalasi)
-- [Tim Pengembang](#-tim-pengembang)
 
 ---
 
